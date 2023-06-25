@@ -31,6 +31,11 @@ const getAttachmentsInVault = (app: App, type: 'image' | 'all'): TFile[] => {
     let attachments: TFile[] = [];
     for (let i = 0; i < allFiles.length; i++) {
         if (!['md', 'canvas'].includes(allFiles[i].extension)) {
+            // Ignore files with names starting with 'cover'
+            const name = allFiles[i].name.toLowerCase();
+            if (name.startsWith('cover')) {
+                continue;
+            }
             // Only images
             if (imageExtensions.has(allFiles[i].extension.toLowerCase())) {
                 attachments.push(allFiles[i]);
